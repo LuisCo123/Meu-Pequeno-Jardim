@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaSun } from "react-icons/fa";
 import { FaMoon } from "react-icons/fa";
 export const ThemeController = () => {
-    const [theme, setTheme] = useState('lemonade');
+    const [theme, setTheme] = useState('forest');
     const toggleTheme = () => {
       setTheme(theme === 'lemonade' ? 'forest' : 'lemonade');
     };

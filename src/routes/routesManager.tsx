@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { UserContext } from "../context/userContext"
 import { PublicRoutes } from "./publicRoutes";
+import { AuthenticatedRoutes } from "./authenticatedRoutes";
 
 export const RoutesManager=()=>{
     const {user} = useContext(UserContext);
@@ -8,7 +9,7 @@ export const RoutesManager=()=>{
         <>
             {
             user.logged?
-            <div className="hero min-h-screen shadow-2xl"/>
+            <AuthenticatedRoutes/>
             :
             <PublicRoutes/>
             }

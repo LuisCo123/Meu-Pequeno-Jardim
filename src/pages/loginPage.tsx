@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react"
-import { authService } from "../services/authService";
+import { AuthService } from "../services/authService";
 import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const { user, setUser } = useContext(UserContext);
-    const authservice = authService;
+    const authservice = AuthService;
+    const navigate = useNavigate();
     const logar = (e: any) => {
         e.preventDefault();
         authservice.authUser().then((response) => {
             if (response) {
+                navigate("/dataSheetPage");
                 setUser({ logged: true });
             }
         })
@@ -22,7 +25,7 @@ export const LoginPage = () => {
     }
 
     useEffect(() => {
-        console.log(user);
+
     }, [user])
     return (
         <div className="hero bg-base-200 min-h-screen">

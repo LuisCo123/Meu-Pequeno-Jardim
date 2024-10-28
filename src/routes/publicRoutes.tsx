@@ -8,6 +8,7 @@ export const PublicRoutes =()=>{
         <Routes>
             <Route path="/" Component={HomePage} />
             <Route path="/login" Component={LoginPage} />
+            <Route path="*" Component={HomePage} />
         </Routes>
     )
 }

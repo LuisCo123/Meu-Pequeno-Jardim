@@ -1,5 +1,7 @@
-export const authService = {
-    async authUser() {
-        return true;
+export const AuthService = {
+    async authUser():Promise<boolean> {
+        return new Promise<boolean>((resolve) => {
+            resolve(true);
+        });
     }
 }
