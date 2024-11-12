@@ -2,10 +2,15 @@ import { ThemeController } from "./themeControllerComponent"
 import { GiGardeningShears } from "react-icons/gi"
 import { FaUser } from "react-icons/fa6"
 import { FaBars } from "react-icons/fa6"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
+import { UserContext } from "../context/userContext"
 export const NavbarComponent = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const {logout} = useContext(UserContext);
+    const logoutUser = () => {
+        logout();
+    }
     return (
         <div className="navbar shadow-2xl">
             <div className="navbar-start">
@@ -68,7 +73,7 @@ export const NavbarComponent = () => {
                             <GiGardeningShears className="h-7 w-7 fill-current" />
                         </button>
                     </Link>
-                    <button className="btn btn-ghost btn-circle ">
+                    <button className="btn btn-ghost btn-circle" onClick={() => logoutUser()}>
                         <FaUser className="h-7 w-7 fill-current" />
                     </button>
                 </div>
