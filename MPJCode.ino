@@ -89,8 +89,8 @@ void loop() {
 
 void configBay(String configs) {
   if (configs == "") {
-    baia[0] = { 0, 16, 33, 0, 34, false, false, false, 55, 55, 485, 500 };
-    baia[1] = { 1, 17, 255, 1, 35, false, false, false, 55.2, 60.0, 490, 500 };
+    baia[0] = { 0, 16, 33, 0, 34, false, false, false, 55, 600, 150, 1000 };
+    baia[1] = { 1, 17, 255, 1, 35, false, false, false, 55.2, 600, 400, 1000 };
     writeFile("baysConfig");
   } else {
     if (convertJson(configs)) {
