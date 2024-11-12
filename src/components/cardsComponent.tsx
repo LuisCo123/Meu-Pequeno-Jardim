@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web"
-import { BiEdit} from "react-icons/bi"
+import { BiEdit } from "react-icons/bi"
 import { BsSun } from "react-icons/bs"
 import { GiWaterDrop } from "react-icons/gi"
 import { FormEvent, useContext, useEffect, useState } from "react"
@@ -7,33 +7,33 @@ import { CgClose } from "react-icons/cg"
 import { BayInterface } from "../interfaces/plantInformationInterface"
 import { PlantInformationContext } from "../context/plantInformationContext"
 import { TimeService } from "../services/timeService"
-export const CardComponent = ({ plantInformationParameter, animation, idBay }: { plantInformationParameter?: BayInterface, animation: any, idBay:string }) => {
+export const CardComponent = ({ plantInformationParameter, animation, idBay }: { plantInformationParameter?: BayInterface, animation: any, idBay: string }) => {
 
     const [editCreate, setEditCreate] = useState<boolean>(false);
-    const {plantInformation,setPlantInformation, setSendMessage} = useContext(PlantInformationContext);
+    const { plantInformation, setPlantInformation, setSendMessage } = useContext(PlantInformationContext);
     const handleEdit = () => {
         if (plantInformationParameter)
             setEditCreate(!editCreate);
     }
-     const startEdit = () => {
+    const startEdit = () => {
         setEditCreate(true);
     }
 
-    const submitForm = (form: any)=>{
+    const submitForm = (form: any) => {
         form.preventDefault();
         let plantInformationEdited: BayInterface = {
             id: idBay,
             lightTimePickerDefault: form.target.lightTimePickerDefault.value,
-            name:form.target.name.value,
-            umySensorValueDefault:form.target.umySensorValueDefault.value,
-            image:form.target.file.files[0]? form.target.file.files[0] : undefined,
+            name: form.target.name.value,
+            umySensorValueDefault: form.target.umySensorValueDefault.value,
+            image: form.target.file.files[0] ? form.target.file.files[0] : undefined,
         }
-        let plants: BayInterface[] | undefined  = plantInformation.bay?.filter((e)=> e.id != plantInformationEdited.id);
-        if(plants){
+        let plants: BayInterface[] | undefined = plantInformation.bay?.filter((e) => e.id != plantInformationEdited.id);
+        if (plants) {
             plants?.push(plantInformationEdited);
-            setPlantInformation({...plantInformation, bay:plants});
-        }else{
-            setPlantInformation({...plantInformation, bay:[plantInformationEdited]});
+            setPlantInformation({ ...plantInformation, bay: plants });
+        } else {
+            setPlantInformation({ ...plantInformation, bay: [plantInformationEdited] });
         }
         setSendMessage(true);
         setEditCreate(false);
@@ -45,10 +45,10 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
     }, [])
     useEffect(() => {
         if (plantInformationParameter && editCreate) {
-            const form :HTMLFormElement = document.getElementById("CadastrarBaia"+idBay) as HTMLFormElement;
-            (form.elements.namedItem("name")as HTMLInputElement).value = plantInformationParameter.name;
-            (form.elements.namedItem("lightTimePickerDefault")as HTMLInputElement).value = plantInformationParameter.lightTimePickerDefault;
-            (form.elements.namedItem("umySensorValueDefault")as HTMLInputElement).value = plantInformationParameter.umySensorValueDefault; 
+            const form: HTMLFormElement = document.getElementById("CadastrarBaia" + idBay) as HTMLFormElement;
+            (form.elements.namedItem("name") as HTMLInputElement).value = plantInformationParameter.name;
+            (form.elements.namedItem("lightTimePickerDefault") as HTMLInputElement).value = plantInformationParameter.lightTimePickerDefault;
+            (form.elements.namedItem("umySensorValueDefault") as HTMLInputElement).value = plantInformationParameter.umySensorValueDefault;
         }
     }, [editCreate])
     return (
@@ -59,7 +59,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
 
                     <div className="card-body  relative items-center pt-16">
                         <h2 className="card-title">Cadastrar ou Editar Informações</h2>
-                        <form id={"CadastrarBaia"+idBay} className="card-body" onSubmit={(e)=>submitForm(e)}>
+                        <form id={"CadastrarBaia" + idBay} className="card-body" onSubmit={(e) => submitForm(e)}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Nome da baía</span>
@@ -83,15 +83,15 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                                 </label>
                                 <label className="input input-bordered flex items-center gap-2">
                                     <GiWaterDrop />
-                                    <input  className="w-full" name="umySensorValueDefault" type="number" placeholder="Umidade do Solo" required />
+                                    <input className="w-full" name="umySensorValueDefault" type="number" placeholder="Umidade do Solo" required />
                                 </label>
                             </div>
-                            <div className="form-control">
+                            {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Foto</span>
                                 </label>
                                 <input name="file" type="file" className="file-input file-input-bordered w-full max-w-xs" accept="image/png, image/jpeg" />
-                            </div>
+                            </div> */}
                             <div className="form-control mt-6 gap-4">
                                 <button className="btn btn-primary">Confirmar</button>
                             </div>
@@ -102,7 +102,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                 :
                 <div className="relative rounded-2xl min-w-72 flex flex-col lg:flex-row bg-base-100 shadow-xl">
                     <div className="h-52 w-full lg:h-full lg:w-80">
-                        <img className="h-52 w-full lg:w-80 lg:h-auto object-cover " src={plantInformationParameter?.image!=undefined? URL.createObjectURL(plantInformationParameter?.image):"Salsinha.jpg"} alt="BaiaFoto" />
+                        <img className="h-52 w-full lg:w-80 lg:h-auto object-cover " src={plantInformationParameter?.image != undefined ? URL.createObjectURL(plantInformationParameter?.image) : "Salsinha.jpg"} alt="BaiaFoto" />
                     </div>
                     <div className="card-body  relative items-center pt-16">
                         <h2 className="card-title">{plantInformationParameter?.name}</h2>
@@ -113,12 +113,12 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                                 <p className="w-full justify-center flex flex-row gap-2 items-center font-semibold text-lg">Luz<BsSun /></p>
                                 <div className="flex flex-row justify-evenly items-center">
                                     <div>
-                                        <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Esperado </p>
-                                        <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.lightTimePickerDefault} hr/D </p>
-                                    </div>
-                                    <div>
                                         <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Recebido </p>
                                         <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.lightTimePicker} hr/D </p>
+                                    </div>
+                                    <div>
+                                        <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Esperado </p>
+                                        <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.lightTimePickerDefault} hr/D </p>
                                     </div>
                                 </div>
                                 <div className="flex flex-row gap-3 items-center">
@@ -130,12 +130,12 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                                 <p className="w-full justify-center flex flex-row gap-2 items-center font-semibold text-lg">Umidade<GiWaterDrop /></p>
                                 <div className="flex flex-row justify-evenly items-center">
                                     <div>
-                                        <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Esperado </p>
-                                        <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.umySensorValueDefault}%</p>
-                                    </div>
-                                    <div>
                                         <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Atual </p>
                                         <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.umySensorValue}%</p>
+                                    </div>
+                                    <div>
+                                        <p className="flex flex-row gap-2 font-semibold text-lg justify-center">Esperado </p>
+                                        <p className="flex flex-row gap-2 font-semibold text-base justify-center">{plantInformationParameter?.umySensorValueDefault}%</p>
                                     </div>
                                 </div>
                                 <div className="flex flex-row gap-3 items-center">
