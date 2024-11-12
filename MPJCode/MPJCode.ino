@@ -128,9 +128,7 @@ void updateBay(String configs) {
   } else {
      for (JsonObject module : docRecived.as<JsonArray>()) {
         int idBay = module["idBay"];
-        baia[idBay].umySensorValue = module["umySensorValue"];
         baia[idBay].umySensorValueDefault = module["umySensorValueDefault"];
-        baia[idBay].lightTimePicker = module["lightTimePicker"];
         baia[idBay].lightTimePickerDefault = module["lightTimePickerDefault"];
       }
       Serial.println(serializeJsonStruct());

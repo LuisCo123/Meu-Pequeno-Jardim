@@ -6,12 +6,11 @@ import { FormEvent, useContext, useEffect, useState } from "react"
 import { CgClose } from "react-icons/cg"
 import { BayInterface } from "../interfaces/plantInformationInterface"
 import { PlantInformationContext } from "../context/plantInformationContext"
-
+import { TimeService } from "../services/timeService"
 export const CardComponent = ({ plantInformationParameter, animation, idBay }: { plantInformationParameter?: BayInterface, animation: any, idBay:string }) => {
 
     const [editCreate, setEditCreate] = useState<boolean>(false);
-    
-    const {plantInformation,setPlantInformation} = useContext(PlantInformationContext);
+    const {plantInformation,setPlantInformation, setSendMessage} = useContext(PlantInformationContext);
     const handleEdit = () => {
         if (plantInformationParameter)
             setEditCreate(!editCreate);
@@ -19,10 +18,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
      const startEdit = () => {
         setEditCreate(true);
     }
-    function convertToSeconds(timeString:any) {
-        const [hours, minutes, seconds] = timeString.split(':').map(Number);
-        return hours * 3600 + minutes * 60 + seconds;
-      }
+
     const submitForm = (form: any)=>{
         form.preventDefault();
         let plantInformationEdited: BayInterface = {
@@ -39,6 +35,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
         }else{
             setPlantInformation({...plantInformation, bay:[plantInformationEdited]});
         }
+        setSendMessage(true);
         setEditCreate(false);
     }
     useEffect(() => {
@@ -77,7 +74,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                                 </label>
                                 <label className="input input-bordered flex items-center gap-2">
                                     <BsSun />
-                                    <input className="w-full" name="lightTimePickerDefault" type="time" placeholder="T/ iluminação diária" required />
+                                    <input className="w-full" name="lightTimePickerDefault" type="time" placeholder="T/ iluminação diária" step="2" required />
                                 </label>
                             </div>
                             <div className="form-control">
@@ -126,7 +123,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                                 </div>
                                 <div className="flex flex-row gap-3 items-center">
                                     <p><BsSun /></p>
-                                    <progress className="progress progress-warning w-32 lg:w-80" value={convertToSeconds(plantInformationParameter?.lightTimePicker)} max={convertToSeconds(plantInformationParameter?.lightTimePickerDefault)}></progress>
+                                    <progress className="progress progress-warning w-32 lg:w-80" value={TimeService.convertToSeconds(plantInformationParameter?.lightTimePicker)} max={TimeService.convertToSeconds(plantInformationParameter?.lightTimePickerDefault)}></progress>
                                 </div>
                             </div>
                             <div className="flex gap-3 flex-col">

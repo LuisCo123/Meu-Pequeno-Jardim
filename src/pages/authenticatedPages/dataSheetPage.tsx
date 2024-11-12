@@ -85,8 +85,8 @@ export const DataSheetPage = () => {
                         connected ?
                             <div className="flex flex-col gap-6">
                                 <div className="gap-5 flex flex-col 2xl:flex-row">
-                                    <CardComponent animation={springs1} idBay="1" plantInformationParameter={plantInformation.bay?plantInformation.bay[0]:undefined}/>
-                                    <CardComponent animation={springs2} idBay="2" plantInformationParameter={plantInformation.bay?plantInformation.bay[1]:undefined}/>
+                                    <CardComponent animation={springs1} idBay="0" plantInformationParameter={plantInformation.bay?plantInformation.bay[0]:undefined}/>
+                                    <CardComponent animation={springs2} idBay="1" plantInformationParameter={plantInformation.bay?plantInformation.bay[1]:undefined}/>
                                 </div>
                                 <div>
                                     <button className="btn btn-secondary btn-circle text-3xl" onClick={()=> voltar()}><BiArrowBack /></button>
