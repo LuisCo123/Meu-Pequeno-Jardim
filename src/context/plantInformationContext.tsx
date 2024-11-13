@@ -16,13 +16,13 @@ const defaultValue: PlantContextType = {
     },
     setPlantInformation: () => { },
     connected: false,
-    setSendMessage: ()=>{},
+    setSendMessage: () => { },
 };
 let connectedSingleton = false;
 export const PlantInformationContext = createContext<PlantContextType>(defaultValue);
 export const PlantInformationProvider = ({ children }: { children: any }) => {
 
-    const [plantInformation, setPlantInformation] = useState<PlantInformationInterface>({ topicName: "" });
+    const [plantInformation, setPlantInformation] = useState<PlantInformationInterface>({ topicName: "", bay: [{ id: 0, lightTimePickerDefault: "", name: "", umySensorValueDefault: "" }, { id: 1, lightTimePickerDefault: "", name: "", umySensorValueDefault: "" }] });
     const [connected, setConnected] = useState<boolean>(false);
     const [sendMessage, setSendMessage] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -45,11 +45,11 @@ export const PlantInformationProvider = ({ children }: { children: any }) => {
             client.on('message', (topic, message) => {
                 const payload = { topic, message: message.toString() };
                 const messageJson = JSON.parse(message.toString());
-                let bayConfig: BayInterface[] | undefined = plantInformation.bay;
+                let bayConfig: BayInterface[] = plantInformation.bay;
                 if (messageJson) {
                     messageJson.forEach((element: any) => {
                         bayConfig[element.idBay].id = element.idBay;
-                        bayConfig[element.idBay].name = bayConfig[element.idBay].name?bayConfig[element.idBay].name:"Escolha um Nome";
+                        bayConfig[element.idBay].name = "Baia " + element.idBay;
                         bayConfig[element.idBay].lightTimePickerDefault = TimeService.formatTime(element.lightTimePickerDefault);
                         bayConfig[element.idBay].lightTimePicker = TimeService.formatTime(element.lightTimePicker);
                         bayConfig[element.idBay].umySensorValueDefault = element.umySensorValueDefault;
@@ -62,11 +62,11 @@ export const PlantInformationProvider = ({ children }: { children: any }) => {
     }, [client]);
 
     useEffect(() => {
+        console.log(plantInformation.bay);
         if (plantInformation.topicName && plantInformation.topicName != "" && client && connected == false) {
             setLoading(true);
             client.subscribe(plantInformation.topicName + "-ESP", (err) => {
                 if (!err) {
-                    console.log(plantInformation);
                     StorageService.setPlantInformation(plantInformation);
                     setConnected(true);
                     setLoading(false);
@@ -83,8 +83,8 @@ export const PlantInformationProvider = ({ children }: { children: any }) => {
             setConnected(false);
             StorageService.removeItem("plantInformation");
         } else {
-            if(sendMessage){
-                let jsonData: [{ idBay: string, umySensorValue: number, umySensorValueDefault: number, lightTimePicker: number, lightTimePickerDefault: number }]| any = [];
+            if (sendMessage) {
+                let jsonData: [{ idBay: string, umySensorValue: number, umySensorValueDefault: number, lightTimePicker: number, lightTimePickerDefault: number }] | any = [];
                 plantInformation.bay?.forEach(plant => {
                     let lightTimePickerDefault = TimeService.convertToSeconds(plant.lightTimePickerDefault);
                     jsonData.push(

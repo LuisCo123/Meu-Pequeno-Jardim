@@ -1,5 +1,5 @@
 export interface BayInterface{
-    id:string,
+    id:number,
     name:string,
     lightTimePickerDefault:string,
     umySensorValueDefault:string,

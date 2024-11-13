@@ -7,7 +7,7 @@ import { CgClose } from "react-icons/cg"
 import { BayInterface } from "../interfaces/plantInformationInterface"
 import { PlantInformationContext } from "../context/plantInformationContext"
 import { TimeService } from "../services/timeService"
-export const CardComponent = ({ plantInformationParameter, animation, idBay }: { plantInformationParameter?: BayInterface, animation: any, idBay: string }) => {
+export const CardComponent = ({ plantInformationParameter, animation, idBay }: { plantInformationParameter?: BayInterface, animation: any, idBay: number }) => {
 
     const [editCreate, setEditCreate] = useState<boolean>(false);
     const { plantInformation, setPlantInformation, setSendMessage } = useContext(PlantInformationContext);
@@ -39,14 +39,9 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
         setEditCreate(false);
     }
     useEffect(() => {
-        if (!plantInformationParameter) {
-            setEditCreate(true);
-        }
-    }, [])
-    useEffect(() => {
         if (plantInformationParameter && editCreate) {
             const form: HTMLFormElement = document.getElementById("CadastrarBaia" + idBay) as HTMLFormElement;
-            (form.elements.namedItem("name") as HTMLInputElement).value = plantInformationParameter.name;
+            // (form.elements.namedItem("name") as HTMLInputElement).value = plantInformationParameter.name;
             (form.elements.namedItem("lightTimePickerDefault") as HTMLInputElement).value = plantInformationParameter.lightTimePickerDefault;
             (form.elements.namedItem("umySensorValueDefault") as HTMLInputElement).value = plantInformationParameter.umySensorValueDefault;
         }
@@ -60,14 +55,14 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                     <div className="card-body  relative items-center pt-16">
                         <h2 className="card-title">Cadastrar ou Editar Informações</h2>
                         <form id={"CadastrarBaia" + idBay} className="card-body" onSubmit={(e) => submitForm(e)}>
-                            <div className="form-control">
+                            {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Nome da baía</span>
                                 </label>
 
                                 <input name="name" type="nome" placeholder="nome" className="input input-bordered" required />
 
-                            </div>
+                            </div> */}
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Tempo de iluminação diária</span>
