@@ -5,7 +5,6 @@ export interface BayInterface{
     umySensorValueDefault:string,
     lightTimePicker?:string,
     umySensorValue?:string,
-    image?:File
 }
 export interface PlantInformationInterface {
     topicName:string,
