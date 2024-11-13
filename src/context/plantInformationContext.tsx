@@ -46,9 +46,10 @@ export const PlantInformationProvider = ({ children }: { children: any }) => {
                 const payload = { topic, message: message.toString() };
                 const messageJson = JSON.parse(message.toString());
                 let bayConfig: BayInterface[] | undefined = plantInformation.bay;
-                if (messageJson && bayConfig) {
+                if (messageJson) {
                     messageJson.forEach((element: any) => {
                         bayConfig[element.idBay].id = element.idBay;
+                        bayConfig[element.idBay].name = bayConfig[element.idBay].name?bayConfig[element.idBay].name:"Escolha um Nome";
                         bayConfig[element.idBay].lightTimePickerDefault = TimeService.formatTime(element.lightTimePickerDefault);
                         bayConfig[element.idBay].lightTimePicker = TimeService.formatTime(element.lightTimePicker);
                         bayConfig[element.idBay].umySensorValueDefault = element.umySensorValueDefault;
