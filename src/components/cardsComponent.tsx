@@ -26,8 +26,8 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
             lightTimePickerDefault: form.target.lightTimePickerDefault.value,
             name: form.target.name.value,
             umySensorValueDefault: form.target.umySensorValueDefault.value,
-            image:  undefined,
         }
+
         let plants: BayInterface[] | undefined = plantInformation.bay?.filter((e) => e.id != plantInformationEdited.id);
         if (plants) {
             plants?.push(plantInformationEdited);
@@ -102,7 +102,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
                 :
                 <div className="relative rounded-2xl min-w-72 flex flex-col lg:flex-row bg-base-100 shadow-xl">
                     <div className="h-52 w-full lg:h-full lg:w-80">
-                        <img className="h-52 w-full lg:w-80 lg:h-auto object-cover " src={plantInformationParameter?.image != undefined ? URL.createObjectURL(plantInformationParameter?.image) : "Salsinha.jpg"} alt="BaiaFoto" />
+                        <img className="h-52 w-full lg:w-80 lg:h-auto object-cover " src={"Salsinha.jpg"} alt="BaiaFoto" />
                     </div>
                     <div className="card-body  relative items-center pt-16">
                         <h2 className="card-title">{plantInformationParameter?.name}</h2>
