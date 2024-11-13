@@ -26,7 +26,7 @@ export const CardComponent = ({ plantInformationParameter, animation, idBay }: {
             lightTimePickerDefault: form.target.lightTimePickerDefault.value,
             name: form.target.name.value,
             umySensorValueDefault: form.target.umySensorValueDefault.value,
-            image: form.target.file.files[0] ? form.target.file.files[0] : undefined,
+            image:  undefined,
         }
         let plants: BayInterface[] | undefined = plantInformation.bay?.filter((e) => e.id != plantInformationEdited.id);
         if (plants) {
