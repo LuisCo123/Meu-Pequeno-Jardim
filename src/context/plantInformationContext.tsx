@@ -26,7 +26,7 @@ export const PlantInformationProvider = ({ children }: { children: any }) => {
     const [connected, setConnected] = useState<boolean>(false);
     const [sendMessage, setSendMessage] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const client = mqtt.connect("wss://broker.eqmx.io:8084");
+    const client = mqtt.connect("wss://broker.eqmx.io:8083");
     let oldTopicName = "";
 
     useEffect(() => {
