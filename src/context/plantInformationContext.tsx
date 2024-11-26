@@ -14,7 +14,7 @@ const defaultValue: PlantContextType = {
     plantInformation: {
         topicName: "",
     },
-    setPlantInformation: () => { },
+    setPlantInformation: () => { }, 
     connected: false,
     setSendMessage: () => { },
 };
